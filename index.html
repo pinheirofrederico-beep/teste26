@@ -696,3 +696,294 @@
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+            <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIOHABIT OS | v2.0 Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ff88;
+            --secondary: #0070ff;
+            --bg: #050505;
+            --surface: #111111;
+            --text: #ffffff;
+            --text-dim: #777;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at top right, #001a11 0%, transparent 40%),
+                              radial-gradient(circle at bottom left, #000d1a 0%, transparent 40%);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            height: 70px;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; background: linear-gradient(var(--primary), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .btn-livros {
+            background: white;
+            color: black;
+            padding: 10px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .btn-livros:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,255,255,0.2); }
+
+        /* --- MAIN CONTENT --- */
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+
+        .hero { margin-bottom: 50px; text-align: center; }
+        .hero h1 { font-size: 3rem; margin-bottom: 10px; }
+        .hero p { color: var(--text-dim); }
+
+        /* --- DASHBOARD GRID --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 30px;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .card:hover { border-color: var(--primary); transform: translateY(-5px); }
+
+        /* --- WATER TRACKER --- */
+        .water-ui { display: flex; align-items: center; justify-content: space-between; margin-top: 20px; }
+        .water-bar { flex: 1; height: 12px; background: #222; border-radius: 6px; margin: 0 15px; overflow: hidden; }
+        .water-fill { height: 100%; background: var(--secondary); width: 0%; transition: 1s ease; box-shadow: 0 0 15px var(--secondary); }
+
+        .btn-circle {
+            width: 45px; height: 45px; border-radius: 50%; border: none; 
+            background: var(--primary); color: black; font-weight: 800; cursor: pointer;
+        }
+
+        /* --- MEAL LOG --- */
+        .meal-input {
+            width: 100%; background: #1a1a1a; border: 1px solid var(--border);
+            padding: 12px; border-radius: 10px; color: white; margin-top: 15px;
+        }
+
+        /* --- SYSTEM REWARDS --- */
+        .badge-grid { display: flex; gap: 10px; margin-top: 20px; }
+        .badge {
+            width: 50px; height: 50px; background: #222; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+            filter: grayscale(1); transition: 0.5s;
+        }
+        .badge.unlocked { filter: grayscale(0); border: 1px solid var(--primary); box-shadow: 0 0 15px rgba(0,255,136,0.2); }
+
+        /* --- NOTIFICATIONS --- */
+        #notif {
+            position: fixed; bottom: 20px; right: 20px; 
+            background: var(--primary); color: black; padding: 15px 25px;
+            border-radius: 12px; font-weight: 700; display: none;
+            animation: slideIn 0.5s forwards;
+        }
+
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+
+        @media (max-width: 768px) { .hero h1 { font-size: 2rem; } }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">BIOHABIT.OS</div>
+        <a href="livros2.html" class="btn-livros">MINHA BIBLIOTECA</a>
+    </nav>
+
+    <div class="container">
+        <header class="hero">
+            <h1 id="greeting">Bom dia, Humano.</h1>
+            <p>Seu sistema biológico está operando a <span style="color: var(--primary)">92% de eficiência</span>.</p>
+        </header>
+
+        <div class="grid">
+            <div class="card">
+                <h3>💧 Hidratação em Tempo Real</h3>
+                <div class="water-ui">
+                    <span id="waterCount">0.0L</span>
+                    <div class="water-bar"><div class="water-fill" id="waterFill"></div></div>
+                    <button class="btn-circle" onclick="updateWater(0.25)">+</button>
+                </div>
+                <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 15px;">Meta: 3.5 Litros</p>
+            </div>
+
+            <div class="card">
+                <h3>🍎 Registro de Refeições</h3>
+                <input type="text" id="mealIn" class="meal-input" placeholder="O que você comeu agora?">
+                <div id="mealList" style="margin-top: 15px; font-size: 0.9rem;"></div>
+            </div>
+
+            <div class="card">
+                <h3>🧠 Insight Científico</h3>
+                <p id="dailyTip" style="color: var(--text-dim); font-style: italic; margin-top: 10px;">"Aguarde, processando dados..."</p>
+                <button onclick="generateTip()" class="btn-livros" style="margin-top: 20px; width: 100%; border: none; cursor: pointer;">NOVA DICA</button>
+            </div>
+
+            <div class="card">
+                <h3>🏆 Conquistas Desbloqueadas</h3>
+                <div class="badge-grid">
+                    <div class="badge" id="b1" title="Primeiro gole">💧</div>
+                    <div class="badge" id="b2" title="Alimentação Limpa">🥗</div>
+                    <div class="badge" id="b3" title="Mestre da Rotina">⚡</div>
+                    <div class="badge" id="b4" title="Nível Deus">👑</div>
+                </div>
+                <p style="margin-top: 15px; font-size: 0.8rem;">Bio-Pontos: <span id="points">0</span></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="notif">Sistema Atualizado!</div>
+
+    <script>
+        // --- DATA ENGINE ---
+        let state = JSON.parse(localStorage.getItem('biohabit_data')) || {
+            water: 0,
+            meals: [],
+            points: 0,
+            badges: []
+        };
+
+        // --- INICIALIZAÇÃO ---
+        window.onload = () => {
+            render();
+            generateTip();
+            setGreeting();
+        };
+
+        function setGreeting() {
+            const hr = new Date().getHours();
+            const g = hr < 12 ? "Bom dia" : hr < 18 ? "Boa tarde" : "Boa noite";
+            document.getElementById('greeting').innerText = `${g}, Atleta.`;
+        }
+
+        // --- LOGICA DE HIDRATAÇÃO ---
+        function updateWater(val) {
+            state.water += val;
+            state.points += 10;
+            checkBadges();
+            save();
+            render();
+            showNotif(`+${val}L registrados!`);
+        }
+
+        // --- LOGICA DE REFEIÇÕES ---
+        document.getElementById('mealIn').addEventListener('keypress', (e) => {
+            if(e.key === 'Enter' && e.target.value !== "") {
+                state.meals.push(e.target.value);
+                state.points += 50;
+                e.target.value = "";
+                save();
+                render();
+                showNotif("Refeição salva com sucesso!");
+            }
+        });
+
+        // --- SISTEMA DE DICAS ---
+        const tips = [
+            "A exposição ao sol logo cedo regula seu cortisol.",
+            "Cafeína após as 14h reduz o sono profundo em até 20%.",
+            "Caminhar 10 minutos após as refeições reduz o pico de insulina.",
+            "O magnésio à noite ajuda na recuperação muscular profunda.",
+            "Treinar em jejum pode aumentar a oxidação de gordura em 15%."
+        ];
+
+        function generateTip() {
+            const t = tips[Math.floor(Math.random() * tips.length)];
+            document.getElementById('dailyTip').innerText = `"${t}"`;
+        }
+
+        // --- GAME LOGIC ---
+        function checkBadges() {
+            if(state.water >= 0.25) unlockBadge('b1');
+            if(state.meals.length >= 1) unlockBadge('b2');
+            if(state.points >= 500) unlockBadge('b3');
+            if(state.water >= 3.5) unlockBadge('b4');
+        }
+
+        function unlockBadge(id) {
+            if(!state.badges.includes(id)) {
+                state.badges.push(id);
+                showNotif("🏆 NOVA CONQUISTA!");
+            }
+        }
+
+        // --- CORE FUNCTIONS ---
+        function save() {
+            localStorage.setItem('biohabit_data', JSON.stringify(state));
+        }
+
+        function render() {
+            // Update Water
+            document.getElementById('waterCount').innerText = `${state.water.toFixed(2)}L`;
+            const fill = (state.water / 3.5) * 100;
+            document.getElementById('waterFill').style.width = `${Math.min(fill, 100)}%`;
+
+            // Update Points
+            document.getElementById('points').innerText = state.points;
+
+            // Update Meals
+            document.getElementById('mealList').innerHTML = state.meals.slice(-3).map(m => 
+                `<div style="color: #555; margin-bottom: 5px;">• ${m}</div>`
+            ).join('');
+
+            // Update Badges
+            state.badges.forEach(id => {
+                document.getElementById(id).classList.add('unlocked');
+            });
+        }
+
+        function showNotif(msg) {
+            const n = document.getElementById('notif');
+            n.innerText = msg;
+            n.style.display = 'block';
+            setTimeout(() => { n.style.display = 'none'; }, 3000);
+        }
+    </script>
+</body>
+</html>
