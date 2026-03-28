@@ -7,6 +7,7 @@
     <style>
       
 
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -25,6 +26,17 @@
             min-height: 100vh;
         }
 
+        /* Sidebar */
+        aside {
+            width: 280px;
+            background: rgba(15, 23, 42, 0.9);
+            border-right: 1px solid #334155;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+        }
 
         .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: 2rem; display: flex; align-items: center; gap: 10px; }
 
@@ -76,7 +88,46 @@
 
         .card h3 { margin-top: 0; font-size: 1.1rem; color: var(--primary); display: flex; align-items: center; gap: 8px; }
 
-       
+        /* Widgets Específicos */
+        .water-widget { text-align: center; }
+        .water-progress {
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            border: 8px solid #334155;
+            display: flex; align-items: center; justify-content: center;
+            margin: 1rem auto;
+            font-size: 1.5rem; font-weight: 800;
+            position: relative;
+        }
+
+        .meal-item {
+            display: flex; justify-content: space-between;
+            padding: 12px; background: #0f172a;
+            margin-bottom: 8px; border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .meal-item.done { border-left: 4px solid var(--primary); opacity: 0.6; }
+
+        .tip-box {
+            background: rgba(0, 255, 163, 0.1);
+            border: 1px dashed var(--primary);
+            padding: 15px; border-radius: 12px;
+            font-size: 0.85rem; line-height: 1.5;
+        }
+
+        .badge-system { display: flex; gap: 10px; margin-top: 10px; }
+        .badge { width: 40px; height: 40px; background: #334155; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .badge.active { background: var(--secondary); box-shadow: 0 0 15px var(--secondary); }
+
+        @media (max-width: 900px) {
+            aside { display: none; }
+            main { margin-left: 0; padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
   
         <div class="header-action">
             <div>
