@@ -5,144 +5,218 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minha Primeira Página</title>
     <style>
-        /* Um pouco de estilo para deixar o visual agradável */
+      
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Guia de Vida Saudável</title>
+    <style>
+        :root {
+            --primary: #2ecc71;
+            --secondary: #3498db;
+            --dark: #2c3e50;
+            --light: #f4f7f6;
+            --accent: #e74c3c;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
+            background-color: var(--light);
             margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
+            color: var(--dark);
         }
+
         header {
-            background: #2c3e50;
-            color: white;
+            background-color: white;
             padding: 2rem;
             text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        main {
-            padding: 2rem;
-            max-width: 800px;
-            margin: auto;
-            background: white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
         }
-        .botao {
-            display: inline-block;
-            background: #3498db;
+
+        /* Botão de Redirecionamento */
+        .nav-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .btn-proxima {
+            background-color: var(--primary);
             color: white;
-            padding: 10px 20px;
+            padding: 15px 40px;
+            border-radius: 50px;
             text-decoration: none;
-            border-radius: 5px;
-            transition: background 0.3s;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: 0.3s;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
         }
-        .botao:hover {
-            background: #2980b9;
+
+        .btn-proxima:hover {
+            transform: translateY(-3px);
+            background-color: #27ae60;
+        }
+
+        /* Grid de Funcionalidades */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            color: var(--primary);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        /* Estilo Específico para Widgets */
+        .water-counter {
+            text-align: center;
+            background: #ebf5fb;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .progress-bar {
+            background: #ddd;
+            border-radius: 20px;
+            height: 20px;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            background: var(--secondary);
+            width: 65%;
+            height: 100%;
+            border-radius: 20px;
+        }
+
+        .badge {
+            background: #f1c40f;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-left: 10px;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Bem-vindo ao Meu Site!</h1>
-        <p>Criado com HTML e CSS puro.</p>
-    </header>
+<header>
+    <h1>Vida Organizada & Saudável</h1>
+    <p>Seu ecossistema completo de bem-estar</p>
+</header>
 
-    <main>
-        <h2>Sobre este projeto</h2>
-        <p>Este é um exemplo de como estruturar uma página web moderna. O HTML cuida do <strong>conteúdo</strong>, enquanto o CSS cuida da <strong>aparência</strong>.</p>
+<div class="container">
+    
+    <div class="nav-section">
+        <a href="livros2.html" class="btn-proxima">Ir para Meus Livros (Página 2) →</a>
+    </div>
+
+    <div class="dashboard">
         
-        <h3>O que você pode fazer agora:</h3>
-        <ul>
-            <li>Alterar as cores no bloco de <code>&lt;style&gt;</code>.</li>
-            <li>Adicionar novas seções e textos.</li>
-            <li>Inserir imagens usando a tag <code>&lt;img&gt;</code>.</li>
-        </ul>
+        <div class="card">
+            <h3>📅 Organização Diária</h3>
+            <ul class="feature-list">
+                <li>Guias Diários Personalizados</li>
+                <li>Rotinas Matinais e Noturnas</li>
+                <li>Lembretes Inteligentes (App & Desktop)</li>
+                <li>Checklist de Produtividade</li>
+            </ul>
+        </div>
 
-        <a href="#" class="botao" onclick="alert('Olá! Você clicou no botão.')">Clique aqui</a>
-    </main>
+        <div class="card">
+            <h3>🥗 Alimentação & Hidratação</h3>
+            <ul class="feature-list">
+                <li>Registro de Refeições (Diário)</li>
+                <li>Controle de Macronutrientes</li>
+                <li>Guia de Receitas Saudáveis</li>
+            </ul>
+            <div class="water-counter">
+                <strong>Contador de Água</strong>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <small>1.5L / 2.5L atingidos</small>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>🏋️ Performance Física</h3>
+            <ul class="feature-list">
+                <li>Controle de Treinos (Cargas/Séries)</li>
+                <li>Acompanhamento de Evolução (Medidas)</li>
+                <li>Relatórios Semanais de Desempenho</li>
+                <li>Histórico de Atividades</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>🏆 Recompensas e Dicas</h3>
+            <ul class="feature-list">
+                <li>Sistema de Pontos por Metas</li>
+                <li>Medalhas de Consistência <span class="badge">Novo</span></li>
+                <li>Dicas de Saúde Mental e Sono</li>
+                <li>Comunidade e Suporte</li>
+            </ul>
+            <p style="font-size: 0.9rem; color: #666; margin-top: 15px;">
+                <em>Dica do dia: Durma 8h para otimizar sua queima de gordura!</em>
+            </p>
+        </div>
+
+    </div>
+</div>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-<style>
-    /* Estilo do Card de Chamada */
-    .card-saude {
-        background: #ffffff;
-        border-radius: 15px;
-        padding: 30px;
-        text-align: center;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        max-width: 500px;
-        margin: 40px auto;
-        border: 1px solid #e0e0e0;
-    }
-
-    .card-saude h2 {
-        color: #27ae60;
-        margin-bottom: 15px;
-    }
-
-    .lista-recursos {
-        text-align: left;
-        font-size: 0.9rem;
-        columns: 2;
-        column-gap: 20px;
-        margin-bottom: 25px;
-        list-style-type: '✔️ ';
-    }
-
-    /* O Botão Principal */
-    .btn-organize {
-        display: inline-block;
-        background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
-        color: white;
-        padding: 18px 35px;
-        font-size: 1.1rem;
-        font-weight: bold;
-        text-decoration: none;
-        border-radius: 50px;
-        transition: transform 0.3s, box-shadow 0.3s;
-        box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
-    }
-
-    .btn-organize:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 20px rgba(46, 204, 113, 0.6);
-        color: white;
-    }
-
-    .btn-organize:active {
-        transform: translateY(0);
-    }
-</style>
-
-<div class="card-saude">
-    <h2>Vida Organizada & Saudável</h2>
-    <p>Seu guia completo para transformar sua rotina e alcançar sua melhor versão.</p>
-    
-    <ul class="lista-recursos">
-        <li>Guias Diários</li>
-        <li>Rotinas</li>
-        <li>Controle Alimentar</li>
-        <li>Treinos</li>
-        <li>Relatórios</li>
-        <li>Contador de Água</li>
-        <li>Lembretes</li>
-        <li>Recompensas</li>
-    </ul>
-
-    <a href="https://seusiteaqui.com" class="btn-organize">
-        COMEÇAR MINHA JORNADA
-    </a>
 </div>
