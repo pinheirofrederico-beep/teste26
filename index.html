@@ -490,3 +490,358 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIOCORE | Quantum Health Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #00f2ff;
+            --accent-glow: rgba(0, 242, 255, 0.5);
+            --bg: #05070a;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        body {
+            background: var(--bg);
+            background-image: radial-gradient(circle at 50% 50%, #101520 0%, #05070a 100%);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- LAYOUT PRINCIPAL --- */
+        .app-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+
+        /* --- SIDEBAR FUTURISTA --- */
+        aside {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid var(--glass-border);
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(90deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .nav-item {
+            padding: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: #888;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--accent);
+            transform: translateX(10px);
+        }
+
+        /* --- CONTEÚDO --- */
+        main { padding: 40px; }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .btn-premium {
+            background: var(--accent);
+            color: #000;
+            padding: 14px 28px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 800;
+            box-shadow: 0 0 20px var(--accent-glow);
+            transition: 0.3s;
+        }
+
+        .btn-premium:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 0 35px var(--accent-glow);
+        }
+
+        /* --- DASHBOARD GRID --- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .glass-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: 0.5s;
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--accent);
+        }
+
+        .card-icon {
+            font-size: 32px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .progress-ring {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            width: 0%;
+            transition: 1.5s cubic-bezier(0.1, 1, 0.1, 1);
+        }
+
+        /* --- BOTÃO DE DICA INTERATIVA --- */
+        .btn-action {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            color: #fff;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .btn-action:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        /* --- MODAL OVERLAY --- */
+        #modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-box {
+            background: #111;
+            padding: 40px;
+            border-radius: 30px;
+            max-width: 500px;
+            border: 1px solid var(--accent);
+            text-align: center;
+            box-shadow: 0 0 50px rgba(0, 242, 255, 0.2);
+        }
+
+        /* --- ANIMAÇÕES --- */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating { animation: float 4s ease-in-out infinite; }
+
+        @media (max-width: 1000px) {
+            .app-container { grid-template-columns: 1fr; }
+            aside { display: none; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <aside>
+            <div class="logo">BIOCORE.OS</div>
+            <nav>
+                <div class="nav-item active">📊 Overview</div>
+                <div class="nav-item">🏋️ Bio-Training</div>
+                <div class="nav-item">🥗 Nutri-Log</div>
+                <div class="nav-item">🌙 Sleep Analysis</div>
+                <div class="nav-item">🏅 Rewards</div>
+            </nav>
+        </aside>
+
+        <main>
+            <div class="header">
+                <div>
+                    <h1 style="font-size: 32px;">Painel de Evolução</h1>
+                    <p style="color: #666;">Status do sistema: <span style="color: var(--accent);">Otimizado</span></p>
+                </div>
+                <a href="livros2.html" class="btn-premium">BIBLIOTECA DE GUIAS</a>
+            </div>
+
+            <div class="stats-grid">
+                
+                <div class="glass-card floating">
+                    <span class="card-icon">💧</span>
+                    <h3>Hidratação</h3>
+                    <div style="font-size: 24px; font-weight: 800; margin: 10px 0;">2.4 <small style="font-size: 14px; color:#666;">/ 3.5L</small></div>
+                    <div class="progress-ring"><div class="progress-bar" id="bar-agua" style="width: 68%;"></div></div>
+                    <button class="btn-action" onclick="showTip('agua')">Ver Bio-Dica</button>
+                </div>
+
+                <div class="glass-card" style="animation-delay: 0.5s;">
+                    <span class="card-icon">🥗</span>
+                    <h3>Nutrição</h3>
+                    <div style="font-size: 14px; color:#aaa; margin-bottom: 15px;">Meta: 2400 kcal | Restam: 850 kcal</div>
+                    <div class="progress-ring"><div class="progress-bar" id="bar-nutri" style="width: 64%; background: var(--accent);"></div></div>
+                    <button class="btn-action" onclick="showTip('nutri')">Estratégia Nutricional</button>
+                </div>
+
+                <div class="glass-card" style="animation-delay: 1s;">
+                    <span class="card-icon">⚡</span>
+                    <h3>Performance</h3>
+                    <div style="font-size: 14px; color:#aaa; margin-bottom: 15px;">Treino: Hipertrofia A (Concluído)</div>
+                    <div class="progress-ring"><div class="progress-bar" id="bar-perf" style="width: 100%; background: #fff;"></div></div>
+                    <button class="btn-action" onclick="showTip('perf')">Análise de Treino</button>
+                </div>
+
+                <div class="glass-card" style="grid-column: span 2;">
+                    <h3>🏆 Sistema de Recompensas</h3>
+                    <div style="display: flex; gap: 15px; margin-top: 20px;">
+                        <div style="padding: 15px; background: rgba(255,255,255,0.03); border-radius: 15px; flex: 1; text-align: center;">
+                            <div style="font-size: 20px;">🔥 12</div>
+                            <div style="font-size: 10px; color: #666;">DIAS DE FOCO</div>
+                        </div>
+                        <div style="padding: 15px; background: rgba(255,255,255,0.03); border-radius: 15px; flex: 1; text-align: center;">
+                            <div style="font-size: 20px;">💎 450</div>
+                            <div style="font-size: 10px; color: #666;">BIO-POINTS</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <h3>💡 Lembrete Inteligente</h3>
+                    <p style="font-size: 13px; color: #888; margin-top: 15px;">
+                        "A luz azul inibe a melatonina. Ative o modo leitura agora."
+                    </p>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div id="modal" onclick="closeModal()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h2 id="m-title" style="color: var(--accent); margin-bottom: 20px;"></h2>
+            <p id="m-text" style="line-height: 1.6; color: #ccc; margin-bottom: 30px;"></p>
+            <button class="btn-premium" onclick="closeModal()" style="width: 100%;">ENTENDIDO</button>
+        </div>
+    </div>
+
+    <script>
+        const database = {
+            agua: {
+                t: "Otimização Celular",
+                txt: "A água estruturada com minerais aumenta a condutividade elétrica do seu corpo. Adicione uma pitada de sal marinho na sua garrafa matinal para melhorar o foco cognitivo."
+            },
+            nutri: {
+                t: "Crononutrição",
+                txt: "Consumir a maior parte dos seus carboidratos no período pós-treino melhora a sensibilidade à insulina e direciona o glicogênio diretamente para os músculos."
+            },
+            perf: {
+                t: "Recuperação Ativa",
+                txt: "Seu volume de treino hoje foi alto. Recomendamos 15 minutos de alongamento ou caminhada leve para remover o excesso de subprodutos metabólicos."
+            }
+        };
+
+        function showTip(key) {
+            const data = database[key];
+            document.getElementById('m-title').innerText = data.t;
+            document.getElementById('m-text').innerText = data.txt;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        // Animação de entrada das barras
+        window.onload = () => {
+            setTimeout(() => {
+                document.getElementById('bar-agua').style.width = '68%';
+                document.getElementById('bar-nutri').style.width = '64%';
+                document.getElementById('bar-perf').style.width = '100%';
+            }, 500);
+        }
+    </script>
+</body>
+</html>
