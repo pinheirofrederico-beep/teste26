@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIOHABIT OS | Ultimate Dashboard</title>
+    <title>BIOHABIT OS | v3.0 Evolution</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -13,7 +13,6 @@
             --surface: #111111;
             --text: #ffffff;
             --text-dim: #777;
-            --glass: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.1);
         }
 
@@ -22,224 +21,239 @@
         body {
             background-color: var(--bg);
             color: var(--text);
-            overflow-x: hidden;
-            background-image: radial-gradient(circle at top right, #001a11 0%, transparent 40%),
-                              radial-gradient(circle at bottom left, #000d1a 0%, transparent 40%);
+            background-image: radial-gradient(circle at top right, #001a11 0%, transparent 40%);
             min-height: 100vh;
         }
 
-        /* --- NAVEGAÇÃO --- */
-        nav {
-            height: 70px;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+
+        /* --- SISTEMA DE XP --- */
+        .xp-header {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            margin-bottom: 30px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 0 5%;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            gap: 20px;
         }
 
-        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; background: linear-gradient(var(--primary), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-        .btn-top {
+        .level-badge {
             background: var(--primary);
             color: black;
-            padding: 10px 20px;
+            font-weight: 800;
+            padding: 10px 15px;
             border-radius: 12px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 1.2rem;
         }
 
-        /* --- LAYOUT --- */
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .xp-bar-container { flex: 1; height: 10px; background: #222; border-radius: 5px; overflow: hidden; }
+        .xp-bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); width: 0%; }
 
-        .hero { margin-bottom: 50px; text-align: center; }
-        .hero h1 { font-size: 3rem; margin-bottom: 10px; }
+        /* --- GRID PRINCIPAL --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        /* --- CARDS --- */
         .card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 24px;
-            padding: 30px;
+            padding: 25px;
             position: relative;
-            overflow: hidden;
         }
 
-        .card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,255,136,0.1); }
+        .card:hover { border-color: var(--primary); transform: translateY(-3px); }
 
-        h3 { color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
-
-        /* --- HIDRATAÇÃO --- */
-        .water-ui { display: flex; align-items: center; gap: 15px; margin-top: 20px; }
-        .water-bar { flex: 1; height: 12px; background: #222; border-radius: 6px; overflow: hidden; }
-        .water-fill { height: 100%; background: var(--secondary); width: 0%; box-shadow: 0 0 15px var(--secondary); }
-
-        .btn-add {
-            width: 45px; height: 45px; border-radius: 50%; border: none; 
-            background: var(--primary); color: black; font-weight: 800; cursor: pointer;
+        /* --- TIMER --- */
+        .timer-display {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            margin: 15px 0;
+            font-variant-numeric: tabular-nums;
         }
 
-        /* --- REFEIÇÕES --- */
-        .meal-input {
-            width: 100%; background: #1a1a1a; border: 1px solid var(--border);
-            padding: 12px; border-radius: 10px; color: white; margin-bottom: 15px;
-        }
+        .btn-group { display: flex; gap: 10px; }
 
-        .meal-item {
-            padding: 10px; background: rgba(255,255,255,0.05); 
-            border-radius: 8px; margin-bottom: 8px; font-size: 0.9rem;
+        button {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            border: none;
             cursor: pointer;
-        }
-        .meal-item:hover { background: rgba(0,255,136,0.1); }
-
-        /* --- MODAL --- */
-        .modal {
-            display: none; position: fixed; z-index: 2000;
-            left: 0; top: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); backdrop-filter: blur(10px);
-            align-items: center; justify-content: center;
+            font-weight: 700;
+            background: var(--border);
+            color: white;
         }
 
-        .modal-content {
-            background: var(--surface); padding: 40px; border-radius: 30px;
-            border: 1px solid var(--primary); max-width: 500px; text-align: center;
+        button.main { background: var(--primary); color: black; }
+        button:hover { opacity: 0.8; transform: scale(1.02); }
+
+        /* --- INPUTS --- */
+        input {
+            width: 100%; background: #1a1a1a; border: 1px solid var(--border);
+            padding: 12px; border-radius: 10px; color: white; margin-bottom: 10px;
         }
 
-        /* --- NOTIFICAÇÃO --- */
+        .item-log {
+            font-size: 0.85rem; padding: 8px; border-bottom: 1px solid #222; color: var(--text-dim);
+        }
+
         #notif {
-            position: fixed; bottom: 20px; right: 20px; 
-            background: var(--primary); color: black; padding: 15px 25px;
-            border-radius: 12px; font-weight: 700; display: none;
-            z-index: 3000;
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: var(--primary); color: black; padding: 12px 30px;
+            border-radius: 50px; font-weight: 700; display: none; z-index: 1000;
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">BIOHABIT.OS</div>
-        <a href="livros2.html" class="btn-top">BIBLIOTECA PRO</a>
-    </nav>
-
     <div class="container">
-        <header class="hero">
-            <h1 id="greeting">Carregando...</h1>
-            <p>Seu progresso é salvo <span style="color: var(--primary)">automaticamente</span>.</p>
-        </header>
+        <div class="xp-header">
+            <div class="level-badge" id="lvl">LVL 1</div>
+            <div style="flex: 1">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.8rem;">
+                    <span>XP para o próximo nível</span>
+                    <span id="xpText">0 / 100</span>
+                </div>
+                <div class="xp-bar-container">
+                    <div class="xp-bar-fill" id="xpBar"></div>
+                </div>
+            </div>
+        </div>
 
         <div class="grid">
             <div class="card">
+                <h3>⏱️ Modo Foco</h3>
+                <div class="timer-display" id="timer">25:00</div>
+                <div class="btn-group">
+                    <button class="main" onclick="toggleTimer()" id="btnStart">INICIAR</button>
+                    <button onclick="resetTimer()">RESET</button>
+                </div>
+            </div>
+
+            <div class="card">
                 <h3>💧 Hidratação</h3>
-                <div class="water-ui">
-                    <span id="waterCount">0.0L</span>
-                    <div class="water-bar"><div class="water-fill" id="waterFill"></div></div>
-                    <button class="btn-add" onclick="addWater(0.25)">+</button>
+                <h2 style="margin: 10px 0;" id="waterTxt">0.0L</h2>
+                <div class="btn-group">
+                    <button class="main" onclick="addAction('water', 0.25)">+ 250ml</button>
+                    <button onclick="addAction('water', 0.5)">+ 500ml</button>
                 </div>
-                <button class="btn-add" style="width:100%; border-radius: 10px; margin-top:15px;" onclick="openModal('agua')">Dica de Especialista</button>
             </div>
 
             <div class="card">
-                <h3>🍎 Alimentação</h3>
-                <input type="text" id="mealIn" class="meal-input" placeholder="Digite e aperte Enter...">
-                <div id="mealList"></div>
-                <button class="btn-add" style="width:100%; border-radius: 10px; margin-top:15px; background: var(--secondary); color:white" onclick="openModal('dieta')">Bio-Estratégia</button>
-            </div>
-
-            <div class="card">
-                <h3>🏋️ Treino do Dia</h3>
-                <p id="workoutDesc">Foco: Hipertrofia A</p>
-                <div style="height: 6px; background: #333; margin: 15px 0; border-radius: 3px;">
-                    <div style="width: 60%; height: 100%; background: var(--primary);"></div>
-                </div>
-                <button class="btn-add" style="width:100%; border-radius: 10px;" onclick="openModal('treino')">Ver Dica de Execução</button>
+                <h3>🍎 Log Nutricional</h3>
+                <input type="text" id="mealIn" placeholder="Ex: Frango e batata doce...">
+                <div id="mealLog"></div>
             </div>
         </div>
     </div>
 
-    <div id="modal" class="modal" onclick="closeModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <h2 id="modalTitle" style="color: var(--primary); margin-bottom: 20px;"></h2>
-            <p id="modalText" style="line-height: 1.6; margin-bottom: 30px;"></p>
-            <button class="btn-top" onclick="closeModal()" style="width: 100%; border: none; cursor: pointer;">ENTENDI</button>
-        </div>
-    </div>
-
-    <div id="notif">Sucesso!</div>
+    <div id="notif">+ XP Adicionado!</div>
 
     <script>
-        // Dados e Dicas
-        const info = {
-            agua: { t: "Hidratação Inteligente", txt: "Beba 35ml de água para cada kg de peso corporal. Adicione limão para equilibrar o pH." },
-            dieta: { t: "Nutrição Avançada", txt: "Proteínas no café da manhã reduzem a fome em até 30% ao longo do dia." },
-            treino: { t: "Máxima Performance", txt: "O descanso entre séries é tão importante quanto o peso. Use 90 segundos para força máxima." }
+        // --- ESTADO GLOBAL ---
+        let state = JSON.parse(localStorage.getItem('biohabit_v3')) || {
+            xp: 0,
+            lvl: 1,
+            water: 0,
+            meals: []
         };
 
-        let state = JSON.parse(localStorage.getItem('bio_data')) || { water: 0, meals: [] };
-
-        window.onload = () => {
-            updateUI();
-            setGreeting();
-        };
-
-        function setGreeting() {
-            const h = new Date().getHours();
-            document.getElementById('greeting').innerText = h < 12 ? "Bom dia, Atleta!" : h < 18 ? "Boa tarde, Campeão!" : "Boa noite, Mestre!";
+        // --- LÓGICA DE XP ---
+        function addXP(amount) {
+            state.xp += amount;
+            if(state.xp >= 100) {
+                state.xp = 0;
+                state.lvl++;
+                showNotif("🚀 NÍVEL AUMENTOU!");
+            }
+            save();
+            render();
         }
 
-        function addWater(v) {
-            state.water += v;
-            saveAndRefres();
-            showNotif(`+${v}L Adicionados!`);
+        // --- TIMER ---
+        let timerSeconds = 1500;
+        let timerInterval = null;
+
+        function toggleTimer() {
+            const btn = document.getElementById('btnStart');
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                btn.innerText = "RETOMAR";
+            } else {
+                btn.innerText = "PAUSAR";
+                timerInterval = setInterval(() => {
+                    timerSeconds--;
+                    updateTimerDisplay();
+                    if(timerSeconds <= 0) {
+                        clearInterval(timerInterval);
+                        addXP(50);
+                        showNotif("Foco concluído! +50 XP");
+                        resetTimer();
+                    }
+                }, 1000);
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timerSeconds = 1500;
+            updateTimerDisplay();
+            document.getElementById('btnStart').innerText = "INICIAR";
+        }
+
+        function updateTimerDisplay() {
+            const m = Math.floor(timerSeconds / 60);
+            const s = timerSeconds % 60;
+            document.getElementById('timer').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
+        }
+
+        // --- AÇÕES ---
+        function addAction(type, val) {
+            if(type === 'water') {
+                state.water += val;
+                addXP(10);
+                showNotif("+10 XP por hidratar!");
+            }
+            save();
+            render();
         }
 
         document.getElementById('mealIn').addEventListener('keypress', (e) => {
             if(e.key === 'Enter' && e.target.value !== "") {
                 state.meals.push(e.target.value);
+                addXP(20);
                 e.target.value = "";
-                saveAndRefres();
-                showNotif("Refeição salva!");
+                showNotif("+20 XP por nutrir!");
+                save();
+                render();
             }
         });
 
-        function saveAndRefres() {
-            localStorage.setItem('bio_data', JSON.stringify(state));
-            updateUI();
-        }
+        // --- ENGINE ---
+        function save() { localStorage.setItem('biohabit_v3', JSON.stringify(state)); }
 
-        function updateUI() {
-            document.getElementById('waterCount').innerText = state.water.toFixed(2) + "L";
-            document.getElementById('waterFill').style.width = Math.min((state.water / 3) * 100, 100) + "%";
+        function render() {
+            document.getElementById('lvl').innerText = `LVL ${state.lvl}`;
+            document.getElementById('xpBar').style.width = `${state.xp}%`;
+            document.getElementById('xpText').innerText = `${state.xp} / 100`;
+            document.getElementById('waterTxt').innerText = `${state.water.toFixed(2)}L`;
             
-            document.getElementById('mealList').innerHTML = state.meals.slice(-3).map(m => 
-                `<div class="meal-item">🍴 ${m}</div>`
+            document.getElementById('mealLog').innerHTML = state.meals.slice(-3).map(m => 
+                `<div class="item-log">🥗 ${m}</div>`
             ).join('');
         }
-
-        function openModal(key) {
-            document.getElementById('modalTitle').innerText = info[key].t;
-            document.getElementById('modalText').innerText = info[key].txt;
-            document.getElementById('modal').style.display = 'flex';
-        }
-
-        function closeModal() { document.getElementById('modal').style.display = 'none'; }
 
         function showNotif(msg) {
             const n = document.getElementById('notif');
             n.innerText = msg; n.style.display = 'block';
-            setTimeout(() => n.style.display = 'none', 2000);
+            setTimeout(() => n.style.display = 'none', 3000);
         }
+
+        render();
     </script>
 </body>
 </html>
