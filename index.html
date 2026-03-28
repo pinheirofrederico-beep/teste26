@@ -13,210 +13,246 @@
 
 
 
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Guia de Vida Saudável</title>
+    <title>BioHabit - Gestão de Performance Humana</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2ecc71;
-            --secondary: #3498db;
-            --dark: #2c3e50;
-            --light: #f4f7f6;
-            --accent: #e74c3c;
+            --brand-primary: #00cf8d;
+            --brand-secondary: #007aff;
+            --bg-main: #f8fafc;
+            --sidebar-bg: #1e293b;
+            --text-main: #334155;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.2s ease-in-out;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--light);
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
             margin: 0;
-            color: var(--dark);
+            display: flex;
+            min-height: 100vh;
         }
 
-        header {
-            background-color: white;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
-
-        /* Botão de Redirecionamento */
-        .nav-section {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .btn-proxima {
-            background-color: var(--primary);
+        /* Sidebar Profissional */
+        aside {
+            width: 260px;
+            background-color: var(--sidebar-bg);
             color: white;
-            padding: 15px 40px;
-            border-radius: 50px;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-link {
+            color: #94a3b8;
             text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: 0.3s;
-            display: inline-block;
-            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            display: block;
+            font-weight: 500;
         }
 
-        .btn-proxima:hover {
-            transform: translateY(-3px);
-            background-color: #27ae60;
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
         }
 
-        /* Grid de Funcionalidades */
-        .dashboard {
+        /* Área Principal */
+        main {
+            margin-left: 260px;
+            flex: 1;
+            padding: 2.5rem;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        /* Botão de Redirecionamento Estilizado */
+        .btn-redirect {
+            background: var(--brand-secondary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.2);
+        }
+
+        .btn-redirect:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 15px rgba(0, 122, 255, 0.3);
+        }
+
+        /* Cards do Dashboard */
+        .grid-system {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
         }
 
         .card {
             background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid #e2e8f0;
+            box-shadow: var(--card-shadow);
         }
 
         .card h3 {
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 10px;
+            font-size: 1.1rem;
             margin-top: 0;
-            color: var(--primary);
-        }
-
-        .feature-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .feature-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
             display: flex;
             align-items: center;
+            gap: 10px;
         }
 
-        .feature-list li::before {
-            content: "✓";
-            color: var(--primary);
-            font-weight: bold;
-            margin-right: 10px;
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 1rem 0;
+            color: var(--sidebar-bg);
         }
 
-        /* Estilo Específico para Widgets */
-        .water-counter {
-            text-align: center;
-            background: #ebf5fb;
+        .feature-tag {
+            display: inline-block;
+            background: #f1f5f9;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            margin: 4px;
+            color: #64748b;
+        }
+
+        /* Indicador de Evolução */
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
             border-radius: 10px;
-            padding: 15px;
-        }
-
-        .progress-bar {
-            background: #ddd;
-            border-radius: 20px;
-            height: 20px;
+            overflow: hidden;
             margin: 10px 0;
         }
 
-        .progress-fill {
-            background: var(--secondary);
-            width: 65%;
+        .progress-bar {
             height: 100%;
-            border-radius: 20px;
+            background: var(--brand-primary);
         }
 
-        .badge {
-            background: #f1c40f;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            margin-left: 10px;
+        @media (max-width: 1024px) {
+            aside { width: 80px; padding: 1rem; }
+            .nav-text, .logo span { display: none; }
+            main { margin-left: 80px; }
+            .grid-system { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Vida Organizada & Saudável</h1>
-    <p>Seu ecossistema completo de bem-estar</p>
-</header>
+    <aside>
+        <div class="logo">🧬 <span>BioHabit</span></div>
+        <nav>
+            <a href="#" class="nav-link active">Dashboard</a>
+            <a href="#" class="nav-link">Planos de Treino</a>
+            <a href="#" class="nav-link">Nutrição Profissional</a>
+            <a href="#" class="nav-link">Relatórios Avançados</a>
+        </nav>
+    </aside>
 
-<div class="container">
-    
-    <div class="nav-section">
-        <a href="livros2.html" class="btn-proxima">Ir para Meus Livros (Página 2) →</a>
-    </div>
-
-    <div class="dashboard">
-        
-        <div class="card">
-            <h3>📅 Organização Diária</h3>
-            <ul class="feature-list">
-                <li>Guias Diários Personalizados</li>
-                <li>Rotinas Matinais e Noturnas</li>
-                <li>Lembretes Inteligentes (App & Desktop)</li>
-                <li>Checklist de Produtividade</li>
-            </ul>
-        </div>
-
-        <div class="card">
-            <h3>🥗 Alimentação & Hidratação</h3>
-            <ul class="feature-list">
-                <li>Registro de Refeições (Diário)</li>
-                <li>Controle de Macronutrientes</li>
-                <li>Guia de Receitas Saudáveis</li>
-            </ul>
-            <div class="water-counter">
-                <strong>Contador de Água</strong>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
-                <small>1.5L / 2.5L atingidos</small>
+    <main>
+        <div class="header-top">
+            <div>
+                <h1 style="margin:0">Bem-vindo, Atleta</h1>
+                <p style="color: #64748b">Sexta-feira, 27 de Março de 2026</p>
             </div>
+            <a href="livros2.html" class="btn-redirect">Biblioteca de Guias →</a>
         </div>
 
-        <div class="card">
-            <h3>🏋️ Performance Física</h3>
-            <ul class="feature-list">
-                <li>Controle de Treinos (Cargas/Séries)</li>
-                <li>Acompanhamento de Evolução (Medidas)</li>
-                <li>Relatórios Semanais de Desempenho</li>
-                <li>Histórico de Atividades</li>
-            </ul>
-        </div>
+        <div class="grid-system">
+            
+            <div class="card">
+                <h3>💧 Hidratação Diária</h3>
+                <div class="stat-value">1.8 <span style="font-size: 1rem; font-weight: 400;">L</span></div>
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 72%;"></div>
+                </div>
+                <p style="font-size: 0.85rem; color: #94a3b8;">Meta: 2.5L (Faltam 700ml)</p>
+            </div>
 
-        <div class="card">
-            <h3>🏆 Recompensas e Dicas</h3>
-            <ul class="feature-list">
-                <li>Sistema de Pontos por Metas</li>
-                <li>Medalhas de Consistência <span class="badge">Novo</span></li>
-                <li>Dicas de Saúde Mental e Sono</li>
-                <li>Comunidade e Suporte</li>
-            </ul>
-            <p style="font-size: 0.9rem; color: #666; margin-top: 15px;">
-                <em>Dica do dia: Durma 8h para otimizar sua queima de gordura!</em>
-            </p>
-        </div>
+            <div class="card">
+                <h3>🍎 Registro Nutricional</h3>
+                <div style="margin-top: 15px;">
+                    <span class="feature-tag">Café da Manhã: OK</span>
+                    <span class="feature-tag">Almoço: OK</span>
+                    <span class="feature-tag">Lanche: Pendente</span>
+                    <span class="feature-tag">Jantar: Pendente</span>
+                </div>
+                <button style="width: 100%; margin-top: 15px; padding: 8px; border: 1px solid #cbd5e1; background: none; border-radius: 8px; cursor: pointer;">+ Adicionar Refeição</button>
+            </div>
 
-    </div>
-</div>
+            <div class="card">
+                <h3>🏋️ Performance Física</h3>
+                <p style="font-size: 0.9rem; margin-bottom: 5px;">Treino de hoje: <b>Full Body A</b></p>
+                <div style="color: var(--brand-primary); font-weight: 600;">85% Concluído</div>
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 85%; background: var(--brand-secondary);"></div>
+                </div>
+            </div>
+
+            <div class="card" style="grid-column: span 2;">
+                <h3>📝 Planejamento e Rotinas Diárias</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px;">
+                    <div>
+                        <p style="font-size: 0.9rem; font-weight: 600;">Rotinas Ativas:</p>
+                        <span class="feature-tag">Higiene do Sono</span>
+                        <span class="feature-tag">Meditação 10min</span>
+                        <span class="feature-tag">Leitura Técnica</span>
+                    </div>
+                    <div>
+                        <p style="font-size: 0.9rem; font-weight: 600;">Lembretes Próximos:</p>
+                        <p style="font-size: 0.8rem; color: #ef4444;">• Vitaminas (em 15 min)</p>
+                        <p style="font-size: 0.8rem; color: #64748b;">• Alongamento (em 2h)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🏆 Rank de Evolução</h3>
+                <div style="text-align: center; padding: 10px;">
+                    <div style="font-size: 2.5rem;">🥇</div>
+                    <p style="margin: 5px 0; font-weight: 700;">Nível: Ouro (Série de 12 dias)</p>
+                    <p style="font-size: 0.8rem; color: #64748b;">+500 XP para o próximo nível</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
 
 </body>
 </html>
-</div>
