@@ -257,3 +257,206 @@
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioHabit Pro | Dicas Interativas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ffa3;
+            --secondary: #007aff;
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+            margin: 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .card {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid #334155;
+            text-align: center;
+        }
+
+        /* Botão de Dica Estilizado */
+        .btn-dica {
+            background: rgba(0, 255, 163, 0.1);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 15px;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        .btn-dica:hover {
+            background: var(--primary);
+            color: #000;
+        }
+
+        /* Estilo do Modal (Janela de Dica) */
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 100;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--card);
+            margin: 15% auto;
+            padding: 30px;
+            border: 2px solid var(--primary);
+            width: 80%;
+            max-width: 500px;
+            border-radius: 20px;
+            position: relative;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close {
+            position: absolute;
+            right: 20px; top: 10px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-page2 {
+            background: var(--secondary);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+
+        h2 { color: var(--primary); margin-top: 0; }
+    </style>
+</head>
+<body>
+
+    <a href="livros2.html" class="btn-page2">Ir para Livros2.html</a>
+
+    <div class="grid">
+        <div class="card">
+            <h3>💧 Hidratação</h3>
+            <p>Controle seu consumo de água.</p>
+            <button class="btn-dica" onclick="abrirModal('agua')">Ver Dica de Especialista</button>
+        </div>
+
+        <div class="card">
+            <h3>🍎 Alimentação</h3>
+            <p>Registro de refeições diárias.</p>
+            <button class="btn-dica" onclick="abrirModal('dieta')">Ver Dica de Nutrição</button>
+        </div>
+
+        <div class="card">
+            <h3>🏋️ Treinos</h3>
+            <p>Acompanhamento de evolução.</p>
+            <button class="btn-dica" onclick="abrirModal('treino')">Ver Dica de Treino</button>
+        </div>
+
+        <div class="card">
+            <h3>🏆 Recompensas</h3>
+            <p>Sistema de gamificação.</p>
+            <button class="btn-dica" onclick="abrirModal('missao')">Ver Como Ganhar</button>
+        </div>
+    </div>
+
+    <div id="meuModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharModal()">&times;</span>
+            <h2 id="modalTitulo">Título da Dica</h2>
+            <p id="modalTexto">Texto da dica aqui...</p>
+        </div>
+    </div>
+
+    <script>
+        const dicas = {
+            agua: {
+                titulo: "Dica de Hidratação 💧",
+                texto: "Não espere ter sede! A sede já é um sinal de desidratação. Tente beber 250ml a cada hora. Para um cálculo exato, multiplique seu peso por 35ml."
+            },
+            dieta: {
+                titulo: "Dica de Nutrição 🍎",
+                texto: "Priorize comida de verdade. A regra de ouro é: 'Desembrulhe menos e descasque mais'. Tente incluir uma fonte de proteína em todas as suas refeições."
+            },
+            treino: {
+                titulo: "Dica de Treino 🏋️",
+                texto: "A consistência vence a intensidade. É melhor treinar 30 minutos todos os dias do que 3 horas apenas uma vez na semana. Foque na execução correta antes de aumentar o peso."
+            },
+            missao: {
+                titulo: "Sistema de Missões 🏆",
+                texto: "Cada 3 dias seguidos batendo sua meta de água você ganha o selo de 'Hidratado'. Complete 7 dias de treino para desbloquear o Guia Avançado de Suplementação!"
+            }
+        };
+
+        function abrirModal(tipo) {
+            document.getElementById('modalTitulo').innerText = dicas[tipo].titulo;
+            document.getElementById('modalTexto').innerText = dicas[tipo].texto;
+            document.getElementById('meuModal').style.display = "block";
+        }
+
+        function fecharModal() {
+            document.getElementById('meuModal').style.display = "none";
+        }
+
+        // Fechar se clicar fora da caixa
+        window.onclick = function(event) {
+            let modal = document.getElementById('meuModal');
+            if (event.target == modal) {
+                fecharModal();
+            }
+        }
+    </script>
+
+</body>
+</html>
