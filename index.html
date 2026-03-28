@@ -18,241 +18,242 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BioHabit - Gestão de Performance Humana</title>
+    <title>BioHabit Pro | Performance & Saúde</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --brand-primary: #00cf8d;
-            --brand-secondary: #007aff;
-            --bg-main: #f8fafc;
-            --sidebar-bg: #1e293b;
-            --text-main: #334155;
-            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            --primary: #00ffa3;
+            --primary-dark: #00c781;
+            --secondary: #007aff;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
         }
 
-        * {
-            box-sizing: border-box;
-            transition: all 0.2s ease-in-out;
-        }
+        * { box-sizing: border-box; transition: all 0.2s ease; }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-main);
+            background-color: var(--bg);
             color: var(--text-main);
             margin: 0;
             display: flex;
             min-height: 100vh;
         }
 
-        /* Sidebar Profissional */
+        /* Sidebar */
         aside {
-            width: 260px;
-            background-color: var(--sidebar-bg);
-            color: white;
-            padding: 2rem 1.5rem;
+            width: 280px;
+            background: rgba(15, 23, 42, 0.9);
+            border-right: 1px solid #334155;
+            padding: 2rem;
             display: flex;
             flex-direction: column;
             position: fixed;
             height: 100vh;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 3rem;
-            display: flex;
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: 2rem; display: flex; align-items: center; gap: 10px; }
+
+        /* Main Content */
+        main { margin-left: 280px; flex: 1; padding: 3rem; }
+
+        .header-action {
+            display: flex; 
+            justify-content: space-between; 
             align-items: center;
-            gap: 10px;
+            background: linear-gradient(90deg, #1e293b, #0f172a);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border: 1px solid #334155;
         }
 
-        .nav-link {
-            color: #94a3b8;
-            text-decoration: none;
-            padding: 0.8rem 1rem;
+        .btn-main {
+            background: var(--primary);
+            color: #000;
+            padding: 12px 28px;
             border-radius: 8px;
-            margin-bottom: 0.5rem;
-            display: block;
-            font-weight: 500;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-        }
-
-        /* Área Principal */
-        main {
-            margin-left: 260px;
-            flex: 1;
-            padding: 2.5rem;
-        }
-
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 3rem;
-        }
-
-        /* Botão de Redirecionamento Estilizado */
-        .btn-redirect {
-            background: var(--brand-secondary);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 10px;
             text-decoration: none;
-            font-weight: 600;
-            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.2);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
         }
 
-        .btn-redirect:hover {
-            transform: scale(1.02);
-            box-shadow: 0 6px 15px rgba(0, 122, 255, 0.3);
-        }
+        .btn-main:hover { background: white; transform: translateY(-2px); }
 
-        /* Cards do Dashboard */
-        .grid-system {
+        /* Grid */
+        .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 1.5rem;
         }
 
         .card {
-            background: white;
-            border-radius: 16px;
+            background: var(--card-bg);
+            border-radius: 20px;
             padding: 1.5rem;
-            border: 1px solid #e2e8f0;
-            box-shadow: var(--card-shadow);
-        }
-
-        .card h3 {
-            font-size: 1.1rem;
-            margin-top: 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .stat-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin: 1rem 0;
-            color: var(--sidebar-bg);
-        }
-
-        .feature-tag {
-            display: inline-block;
-            background: #f1f5f9;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            margin: 4px;
-            color: #64748b;
-        }
-
-        /* Indicador de Evolução */
-        .progress-container {
-            width: 100%;
-            height: 8px;
-            background: #e2e8f0;
-            border-radius: 10px;
+            border: 1px solid #334155;
+            position: relative;
             overflow: hidden;
-            margin: 10px 0;
         }
 
-        .progress-bar {
-            height: 100%;
-            background: var(--brand-primary);
+        .card:hover { border-color: var(--primary); }
+
+        .card h3 { margin-top: 0; font-size: 1.1rem; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+
+        /* Widgets Específicos */
+        .water-widget { text-align: center; }
+        .water-progress {
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            border: 8px solid #334155;
+            display: flex; align-items: center; justify-content: center;
+            margin: 1rem auto;
+            font-size: 1.5rem; font-weight: 800;
+            position: relative;
         }
 
-        @media (max-width: 1024px) {
-            aside { width: 80px; padding: 1rem; }
-            .nav-text, .logo span { display: none; }
-            main { margin-left: 80px; }
-            .grid-system { grid-template-columns: 1fr; }
+        .meal-item {
+            display: flex; justify-content: space-between;
+            padding: 12px; background: #0f172a;
+            margin-bottom: 8px; border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .meal-item.done { border-left: 4px solid var(--primary); opacity: 0.6; }
+
+        .tip-box {
+            background: rgba(0, 255, 163, 0.1);
+            border: 1px dashed var(--primary);
+            padding: 15px; border-radius: 12px;
+            font-size: 0.85rem; line-height: 1.5;
+        }
+
+        .badge-system { display: flex; gap: 10px; margin-top: 10px; }
+        .badge { width: 40px; height: 40px; background: #334155; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .badge.active { background: var(--secondary); box-shadow: 0 0 15px var(--secondary); }
+
+        @media (max-width: 900px) {
+            aside { display: none; }
+            main { margin-left: 0; padding: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
     <aside>
-        <div class="logo">🧬 <span>BioHabit</span></div>
+        <div class="logo">⚡ BIOHABIT</div>
         <nav>
-            <a href="#" class="nav-link active">Dashboard</a>
-            <a href="#" class="nav-link">Planos de Treino</a>
-            <a href="#" class="nav-link">Nutrição Profissional</a>
-            <a href="#" class="nav-link">Relatórios Avançados</a>
+            <p style="color: var(--text-dim); font-size: 0.7rem; text-transform: uppercase;">Menu Principal</p>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <span style="color: var(--primary)">● Dashboard</span>
+                <span>○ Treinos</span>
+                <span>○ Nutrição</span>
+                <span>○ Relatórios</span>
+            </div>
         </nav>
     </aside>
 
     <main>
-        <div class="header-top">
+        <div class="header-action">
             <div>
-                <h1 style="margin:0">Bem-vindo, Atleta</h1>
-                <p style="color: #64748b">Sexta-feira, 27 de Março de 2026</p>
+                <h2 style="margin:0">Performance diária</h2>
+                <p style="margin:5px 0 0; color: var(--text-dim);">Dica: Use o protocolo 3-2-1 para dormir melhor hoje.</p>
             </div>
-            <a href="livros2.html" class="btn-redirect">Biblioteca de Guias →</a>
+            <a href="livros2.html" class="btn-main">Acessar Biblioteca 📚</a>
         </div>
 
-        <div class="grid-system">
+        <div class="dashboard-grid">
             
-            <div class="card">
-                <h3>💧 Hidratação Diária</h3>
-                <div class="stat-value">1.8 <span style="font-size: 1rem; font-weight: 400;">L</span></div>
-                <div class="progress-container">
-                    <div class="progress-bar" style="width: 72%;"></div>
-                </div>
-                <p style="font-size: 0.85rem; color: #94a3b8;">Meta: 2.5L (Faltam 700ml)</p>
+            <div class="card water-widget">
+                <h3>💧 Hidratação</h3>
+                <div class="water-progress" id="waterDisplay">1.5L</div>
+                <button onclick="addWater()" style="background: var(--secondary); border: none; color: white; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold;">+ 250ml</button>
+                <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 10px;">Meta: 3.0L</p>
             </div>
 
             <div class="card">
-                <h3>🍎 Registro Nutricional</h3>
-                <div style="margin-top: 15px;">
-                    <span class="feature-tag">Café da Manhã: OK</span>
-                    <span class="feature-tag">Almoço: OK</span>
-                    <span class="feature-tag">Lanche: Pendente</span>
-                    <span class="feature-tag">Jantar: Pendente</span>
+                <h3>🍎 Plano Alimentar</h3>
+                <div class="meal-item" onclick="this.classList.toggle('done')">
+                    <span>Café: Ovos + Abacate</span>
+                    <span>08:00</span>
                 </div>
-                <button style="width: 100%; margin-top: 15px; padding: 8px; border: 1px solid #cbd5e1; background: none; border-radius: 8px; cursor: pointer;">+ Adicionar Refeição</button>
+                <div class="meal-item" onclick="this.classList.toggle('done')">
+                    <span>Almoço: Frango + Quinoa</span>
+                    <span>12:30</span>
+                </div>
+                <div class="meal-item" onclick="this.classList.toggle('done')">
+                    <span>Lanche: Whey + Nuts</span>
+                    <span>16:00</span>
+                </div>
+                <p style="font-size: 0.75rem; color: var(--text-dim);">Clique na refeição para marcar como feita.</p>
             </div>
 
             <div class="card">
-                <h3>🏋️ Performance Física</h3>
-                <p style="font-size: 0.9rem; margin-bottom: 5px;">Treino de hoje: <b>Full Body A</b></p>
-                <div style="color: var(--brand-primary); font-weight: 600;">85% Concluído</div>
-                <div class="progress-container">
-                    <div class="progress-bar" style="width: 85%; background: var(--brand-secondary);"></div>
-                </div>
-            </div>
-
-            <div class="card" style="grid-column: span 2;">
-                <h3>📝 Planejamento e Rotinas Diárias</h3>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px;">
-                    <div>
-                        <p style="font-size: 0.9rem; font-weight: 600;">Rotinas Ativas:</p>
-                        <span class="feature-tag">Higiene do Sono</span>
-                        <span class="feature-tag">Meditação 10min</span>
-                        <span class="feature-tag">Leitura Técnica</span>
-                    </div>
-                    <div>
-                        <p style="font-size: 0.9rem; font-weight: 600;">Lembretes Próximos:</p>
-                        <p style="font-size: 0.8rem; color: #ef4444;">• Vitaminas (em 15 min)</p>
-                        <p style="font-size: 0.8rem; color: #64748b;">• Alongamento (em 2h)</p>
+                <h3>🏋️ Próximo Treino</h3>
+                <div style="background: #0f172a; padding: 15px; border-radius: 12px;">
+                    <p style="margin:0; font-weight: bold;">Foco: Membros Inferiores</p>
+                    <p style="font-size: 0.85rem; color: var(--text-dim);">Agachamento, Leg Press, Extensora...</p>
+                    <div style="height: 6px; background: #334155; margin-top: 15px; border-radius: 3px;">
+                        <div style="width: 40%; height: 100%; background: var(--primary);"></div>
                     </div>
                 </div>
+                <button style="width:100%; margin-top: 15px; padding: 10px; border-radius: 8px; border: 1px solid var(--primary); background: transparent; color: var(--primary); cursor: pointer;">Iniciar Cronômetro</button>
             </div>
 
             <div class="card">
-                <h3>🏆 Rank de Evolução</h3>
-                <div style="text-align: center; padding: 10px;">
-                    <div style="font-size: 2.5rem;">🥇</div>
-                    <p style="margin: 5px 0; font-weight: 700;">Nível: Ouro (Série de 12 dias)</p>
-                    <p style="font-size: 0.8rem; color: #64748b;">+500 XP para o próximo nível</p>
+                <h3>🧠 Insight Científico</h3>
+                <div class="tip-box" id="dailyTip">
+                    Carregando dica de performance...
+                </div>
+                <button onclick="newTip()" style="margin-top: 10px; background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 0.8rem;">🔄 Nova dica</button>
+            </div>
+
+            <div class="card">
+                <h3>🏆 Conquistas</h3>
+                <p style="font-size: 0.9rem;">Série atual: <b>12 dias invicto</b></p>
+                <div class="badge-system">
+                    <div class="badge active" title="Hidratado">💧</div>
+                    <div class="badge active" title="Treino Concluído">🔥</div>
+                    <div class="badge" title="Sono Regular">🌙</div>
+                    <div class="badge" title="Leitura Diária">📖</div>
                 </div>
             </div>
 
         </div>
     </main>
 
+    <script>
+        // Lógica da Água
+        let water = 1.5;
+        function addWater() {
+            water += 0.25;
+            document.getElementById('waterDisplay').innerText = water.toFixed(2) + 'L';
+            if(water >= 3) {
+                document.getElementById('waterDisplay').style.color = '#00ffa3';
+                alert('Meta batida! Você está voando!');
+            }
+        }
+
+        // Sistema de Dicas
+        const tips = [
+            "A exposição à luz solar nos primeiros 30 min do dia regula seu ritmo circadiano.",
+            "Consumir proteína no café da manhã reduz a compulsão alimentar à noite.",
+            "O café inibe a adenosina, mas deve ser evitado após as 14h para não prejudicar o sono profundo.",
+            "Treinos de força aumentam a densidade mitocondrial, dando mais energia cognitiva.",
+            "A respiração nasal durante o exercício melhora a oxigenação sanguínea."
+        ];
+
+        function newTip() {
+            const randomTip = tips[Math.floor(Math.random() * tips.length)];
+            document.getElementById('dailyTip').innerText = randomTip;
+        }
+
+        // Inicializar dica
+        newTip();
+    </script>
 </body>
 </html>
