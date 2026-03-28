@@ -191,3 +191,247 @@
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIOHABIT PRO | Science & Health</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ff88;
+            --secondary: #0070ff;
+            --accent: #facc15;
+            --bg: #050505;
+            --surface: #111111;
+            --text: #ffffff;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; scroll-behavior: smooth; }
+
+        body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+
+        /* --- NAVBAR --- */
+        nav {
+            background: rgba(0,0,0,0.9); backdrop-filter: blur(10px);
+            padding: 15px 5%; position: sticky; top: 0; z-index: 1000;
+            display: flex; justify-content: space-between; border-bottom: 1px solid var(--border);
+        }
+
+        .nav-links a { color: white; text-decoration: none; margin-left: 20px; font-weight: 600; font-size: 0.9rem; }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* --- SEÇÕES --- */
+        section { margin-bottom: 80px; }
+        h2 { font-size: 2.5rem; margin-bottom: 30px; background: linear-gradient(90deg, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* --- GRID DE NUTRIENTES --- */
+        .nutri-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        
+        .nutri-card {
+            background: var(--surface); border: 1px solid var(--border);
+            padding: 30px; border-radius: 24px; position: relative;
+        }
+
+        .nutri-card h3 { color: var(--primary); margin-bottom: 10px; }
+        .tag { display: inline-block; padding: 4px 10px; background: rgba(0,255,136,0.1); color: var(--primary); border-radius: 6px; font-size: 0.7rem; margin-bottom: 10px; font-weight: 800; }
+        .detail-list { font-size: 0.85rem; color: #ccc; margin-top: 10px; list-style: none; }
+        .detail-list li::before { content: "• "; color: var(--primary); }
+
+        /* --- CALCULADORA --- */
+        .calc-box {
+            background: linear-gradient(145deg, #111, #0a0a0a);
+            border: 1px solid var(--secondary); padding: 40px; border-radius: 30px;
+            max-width: 600px; margin: 0 auto;
+        }
+
+        .input-group { margin-bottom: 15px; }
+        label { display: block; font-size: 0.8rem; color: #888; margin-bottom: 5px; }
+        input, select {
+            width: 100%; background: #1a1a1a; border: 1px solid var(--border);
+            padding: 12px; border-radius: 12px; color: white; outline: none;
+        }
+        input:focus { border-color: var(--secondary); }
+
+        .btn-calc {
+            width: 100%; padding: 15px; background: var(--secondary); color: white;
+            border: none; border-radius: 12px; font-weight: 800; cursor: pointer; margin-top: 10px;
+        }
+
+        /* --- EXERCÍCIOS --- */
+        .ex-list { display: flex; flex-direction: column; gap: 15px; }
+        .ex-item {
+            background: var(--surface); padding: 20px; border-radius: 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-left: 4px solid var(--primary);
+        }
+
+        /* --- FOOTER --- */
+        footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); color: #444; }
+
+        #result { margin-top: 20px; text-align: center; font-size: 1.2rem; font-weight: 800; color: var(--primary); }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div style="font-weight: 800; font-size: 1.4rem;">BIO<span style="color: var(--primary);">HABIT</span></div>
+        <div class="nav-links">
+            <a href="#nutri">NUTRIÇÃO</a>
+            <a href="#calc">CALCULADORA</a>
+            <a href="#treino">TREINO</a>
+            <a href="#sono">SONO</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <section id="nutri">
+            <h2>Ciência dos Nutrientes</h2>
+            <div class="nutri-grid">
+                <div class="nutri-card">
+                    <span class="tag">CONSTRUTOR</span>
+                    <h3>Proteínas</h3>
+                    <p>Cadeias de aminoácidos vitais para a hipertrofia e neurotransmissores.</p>
+                    <ul class="detail-list">
+                        <li>Alta Termogênese: O corpo gasta mais energia para digeri-las.</li>
+                        <li>Saciação: Reduz os níveis de grelina (hormônio da fome).</li>
+                        <li>Dica: Consuma 1.6g a 2.2g por kg de peso se treinar pesado.</li>
+                    </ul>
+                </div>
+                <div class="nutri-card">
+                    <span class="tag">ENERGIA</span>
+                    <h3>Carboidratos</h3>
+                    <p>A fonte primária de glicogênio muscular e combustível cognitivo.</p>
+                    <ul class="detail-list">
+                        <li>Complexos: Liberam energia gradual (Aveia, Batata Doce).</li>
+                        <li>Simples: Rápidos para o pós-treino imediato (Frutas).</li>
+                        <li>Fibras: Essenciais para a microbiota e controle da insulina.</li>
+                    </ul>
+                </div>
+                <div class="nutri-card">
+                    <span class="tag">HORMONAL</span>
+                    <h3>Gorduras Boas</h3>
+                    <p>Suporte para a produção de testosterona e absorção de vitaminas lipossolúveis (A, D, E, K).</p>
+                    <ul class="detail-list">
+                        <li>Ômega-3: Anti-inflamatório potente para as articulações.</li>
+                        <li>Cérebro: 60% do seu cérebro é composto por gordura.</li>
+                        <li>Dica: Evite gorduras trans e óleos vegetais refinados.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="calc">
+            <div class="calc-box">
+                <h2 style="font-size: 1.8rem; text-align: center;">Calculadora Metabólica</h2>
+                <div class="input-group">
+                    <label>Peso (kg)</label>
+                    <input type="number" id="peso" placeholder="Ex: 75">
+                </div>
+                <div class="input-group">
+                    <label>Altura (cm)</label>
+                    <input type="number" id="altura" placeholder="Ex: 175">
+                </div>
+                <div class="input-group">
+                    <label>Idade</label>
+                    <input type="number" id="idade" placeholder="Ex: 25">
+                </div>
+                <button class="btn-calc" onclick="calcularMetabolismo()">CALCULAR METAS</button>
+                <div id="result"></div>
+            </div>
+        </section>
+
+        <section id="treino">
+            <h2>Guia de Movimento</h2>
+            <div class="ex-list">
+                <div class="ex-item">
+                    <div>
+                        <strong style="color: var(--primary);">Agachamento (Squat)</strong>
+                        <p style="font-size: 0.8rem; color: #888;">Padrão ouro para força funcional e liberação hormonal.</p>
+                    </div>
+                    <span>3-4 Séries | 8-12 Reps</span>
+                </div>
+                <div class="ex-item">
+                    <div>
+                        <strong style="color: var(--primary);">Levantamento Terra (Deadlift)</strong>
+                        <p style="font-size: 0.8rem; color: #888;">Fortalece toda a cadeia posterior (coluna, glúteos e posterior).</p>
+                    </div>
+                    <span>Foco em Técnica</span>
+                </div>
+                <div class="ex-item">
+                    <div>
+                        <strong style="color: var(--primary);">Barra Fixa (Pull-ups)</strong>
+                        <p style="font-size: 0.8rem; color: #888;">O melhor indicador de força relativa do trem superior.</p>
+                    </div>
+                    <span>Até a falha</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="sono">
+            <h2>Higiene do Sono</h2>
+            <div class="nutri-grid">
+                <div class="nutri-card" style="border-color: var(--secondary);">
+                    <h3>Ritmo Circadiano</h3>
+                    <p>Exposição à luz solar pela manhã bloqueia a melatonina e ativa o cortisol saudável para o dia.</p>
+                </div>
+                <div class="nutri-card" style="border-color: var(--secondary);">
+                    <h3>Protocolo Digital</h3>
+                    <p>Desligue telas 1 hora antes de dormir ou use filtros de luz azul para não enganar seu cérebro.</p>
+                </div>
+                <div class="nutri-card" style="border-color: var(--secondary);">
+                    <h3>Quarto Frio</h3>
+                    <p>A temperatura ideal para o sono profundo é em torno de 18°C a 20°C. O corpo precisa resfriar para dormir.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>BioHabit OS - Protocolos Baseados em Evidência Científica</p>
+        <p style="font-size: 0.7rem; margin-top: 10px;">Disclaimer: Este painel tem fins informativos. A prática de exercícios e mudanças dietéticas devem ter acompanhamento profissional.</p>
+    </footer>
+
+    <script>
+        function calcularMetabolismo() {
+            const peso = parseFloat(document.getElementById('peso').value);
+            const altura = parseFloat(document.getElementById('altura').value);
+            const idade = parseFloat(document.getElementById('idade').value);
+
+            if(peso && altura && idade) {
+                const tmb = (10 * peso) + (6.25 * altura) - (5 * idade) + 5;
+                const totalKcal = Math.round(tmb * 1.4); 
+
+                document.getElementById('result').innerHTML = `
+                    Sua Taxa Metabólica: ${Math.round(tmb)} kcal<br>
+                    <span style="color: white; font-size: 0.9rem;">Meta Diária Estimada: ${totalKcal} kcal/dia</span>
+                `;
+            } else {
+                alert("Por favor, preencha todos os campos.");
+            }
+        }
+    </script>
+</body>
+</html>
